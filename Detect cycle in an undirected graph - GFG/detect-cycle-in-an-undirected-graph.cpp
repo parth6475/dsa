@@ -5,35 +5,29 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    bool detect(int src, vector<int> adjlist[], vector<int> &flag){
-        flag[src]=1;
-        queue<pair<int,int>>    q;
-        q.push({src,-1});
-        while(!q.empty()){
-            int node=q.front().first;
-            int parent=q.front().second;
-            q.pop();
-            for(int i=0;i<adjlist[node].size();++i){
-                int adjacentnode=adjlist[node][i];
-                //if adjacent is not visited
-                if(flag[adjacentnode]==0){
-                    flag[adjacentnode]=1;
-                    q.push({adjacentnode, node});
-                }
-                //if adjacent is visited and is not parent
-                else if(parent!=adjacentnode){
+    //DFS
+    bool recursion(int node, int parent, vector<int> adjlist[], vector<int> &flag){
+        flag[node]=1;
+        for(int i=0;i<adjlist[node].size();++i){
+            int adjacentnode=adjlist[node][i];
+            //if adjacent is not visited
+            if(flag[adjacentnode]==0){
+                if(recursion(adjacentnode,node,adjlist,flag)==true)
                     return true;
-                }
             }
+            //if adjacent is visited and not parent
+            else if(adjacentnode!=parent)   return true;
         }
         return false;
     }
     // Function to detect cycle in an undirected graph.
     bool isCycle(int V, vector<int> adjlist[]) {
         vector<int> flag(V,0);
+        //for multi component graph
         for(int i=0;i<V;++i){
             if(flag[i]==0){
-                if(detect(i,adjlist,flag)==true)    return true;
+                if(recursion(i,-1,adjlist,flag)==true)
+                    return true;
             }
         }
         return false;
