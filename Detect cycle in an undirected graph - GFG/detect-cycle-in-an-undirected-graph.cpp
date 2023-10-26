@@ -15,10 +15,12 @@ class Solution {
             q.pop();
             for(int i=0;i<adjlist[node].size();++i){
                 int adjacentnode=adjlist[node][i];
+                //if adjacent is not visited
                 if(flag[adjacentnode]==0){
                     flag[adjacentnode]=1;
                     q.push({adjacentnode, node});
                 }
+                //if adjacent is visited and is not parent
                 else if(parent!=adjacentnode){
                     return true;
                 }
