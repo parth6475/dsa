@@ -9,13 +9,13 @@ class Solution {
         int cnt1=0, cnt2=0;
         int el1=INT_MIN, el2=INT_MIN;
         for(int i=0;i<n;++i){
-            if(cnt1==0){
+            if(cnt1==0&&el2!=nums[i]){
                 el1=nums[i];
                 cnt1++;
             }
             else if(nums[i]==el1)
                 cnt1++;
-            else if(cnt2==0){
+            else if(cnt2==0&&el1!=nums[i]){
                 el2=nums[i];
                 cnt2++;
             }
@@ -32,7 +32,6 @@ class Solution {
             if(nums[i]==el1)    cnt1++;
             else if(nums[i]==el2)   cnt2++;
         }
-        //cout<<el1<<" "<<el2<<endl<<cnt1<<" "<<cnt2;
         if(cnt1>n/3)
             ans.push_back(el1);
         if(cnt2>n/3)
