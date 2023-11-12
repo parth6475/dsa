@@ -52,7 +52,6 @@ class Solution{
     {
         return mergeSort(arr,0,N-1);
     }
-
 };
 
 //{ Driver Code Starts.
